@@ -1,4 +1,4 @@
-# 🧩 CI/CD Reusable Workflow for Python Applications
+# Paved Road CI for Python Applications
 
 A reusable, production-ready **CI/CD pipeline** template for Python projects — built with **GitHub Actions**, **Docker**, and **best practices** in testing, linting, and deployment.
 
