@@ -3,11 +3,11 @@ name: Python Deploy NP
 on:
   workflow_dispatch:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, closed]
     branches:
       - main
 
-concurreny:
+concurrency:
   group: python-deploy-${{ github.ref }}
   cancel-in-progress: true
 
@@ -21,10 +21,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+        uses: actions/checkout@v4
 
       - name: setup python
-        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c
+        uses: actions/setup-python@5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: "pip"
