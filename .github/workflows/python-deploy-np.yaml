@@ -7,20 +7,35 @@ on:
     branches:
       - main
 
+concurreny:
+  group: python-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHON_VERSION: "3.10"
+  IMAGE_NAME: ghcr.io/${{ github.repository }}
+
 jobs:
-  build:
+  lint-test:
+    name: Lint and Test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: checkout code
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
 
-      - name: Set up Python
+      - name: setup python
         uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c
         with:
-          python-version: '3.11'
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: "pip"
 
-      -
-
-      - name: Deploy
+      - name: install dev deps
         run: |
-          echo "Deploying to production server..."
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"   # at the moment we assume a pyproject.toml and dev dependencies
+
+      - name: Run pre-comit (ruff + black)
+        run: pre-commit run --all-files
+
+      - name: pytest
+        run: pytest -v --cov=src --cov-report=term-missing
