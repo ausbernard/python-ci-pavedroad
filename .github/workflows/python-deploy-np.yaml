@@ -37,14 +37,7 @@ jobs:
         minor_pattern: "^feat:"
         search_commit_body: true
         bump_each_commit: false
-    - name: Debug
-      run: |
-        echo "All tags:"; git tag -l | sort -V | tail -n 20
-        echo "Last 'v*' tag:"; last=$(git tag -l 'v*' | sort -V | tail -n 1); echo "$last"
-        echo "Commits since last tag (subjects):"
-        if [ -n "$last" ]; then git log "$last"..HEAD --pretty="%h %s"; else echo "(no tag)"; fi
-        echo "Does HEAD look like MAJOR? (0=yes)"
-        git log -1 --pretty=%B | grep -E -i 'BREAKING CHANGE:|!:|BC:|major:' >/dev/null; echo $?
+
 
   #     - name: Docker meta
   #       id: meta
