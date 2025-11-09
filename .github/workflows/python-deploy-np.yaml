@@ -38,7 +38,6 @@ jobs:
           minor_regexp_flags: "gi"
           bump_each_commit: false
           search_commit_body: true
-          # Debug for visibility
           debug: true
 
       - name: Show Version
