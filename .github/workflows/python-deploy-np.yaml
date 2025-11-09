@@ -26,7 +26,6 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
-    - run: git fetch --force --tags --prune --prune-tags
 
     - name: Compute next version
       id: semver
