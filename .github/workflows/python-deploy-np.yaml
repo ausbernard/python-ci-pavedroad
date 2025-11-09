@@ -32,7 +32,6 @@ jobs:
         uses: paulhatch/semantic-version@v5.4.0
         with:
           version_format: "${major}.${minor}.${patch}"
-          # Ensure we get all history and tags
           namespace: python-ci-pavedroad
           # Major version changes (Breaking)
           major_pattern: "BREAKING CHANGE:|!:|BC:|major:"
