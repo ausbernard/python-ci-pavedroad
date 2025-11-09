@@ -35,7 +35,6 @@ jobs:
           namespace: python-ci-pavedroad
           major_pattern: "BREAKING CHANGE:|!:|BC:|major:"
           major_regexp_flags: "gi"
-          # Minor version changes (Features)
           minor_pattern: "feat:|feature:|minor:"
           minor_regexp_flags: "gi"
           # Enable patch bumps for each commit
