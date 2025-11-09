@@ -41,13 +41,16 @@ jobs:
           search_commit_body: true
           debug: true
 
-      - name: Show Version
+      - name: Debug
         run: |
-          echo "Version: ${{ steps.version.outputs.version }}"
-          echo "Version Tag: v${{ steps.version.outputs.version }}"
-          echo "Major: ${{ steps.version.outputs.major }}"
-          echo "Minor: ${{ steps.version.outputs.minor }}"
-          echo "Patch: ${{ steps.version.outputs.patch }}"
+          echo "All tags:"; git tag -l | sort -V | tail -n 20
+          echo "Last 'v*' tag:"; last=$(git tag -l 'v*' | sort -V | tail -n 1); echo "$last"
+          echo "Commits since last tag (subjects):"
+          if [ -n "$last" ]; then git log "$last"..HEAD --pretty="%h %s"; else echo "(no tag)"; fi
+          echo "Does HEAD look like MAJOR? (0=yes)"
+          git log -1 --pretty=%B | grep -E -i 'BREAKING CHANGE:|!:|BC:|major:' >/dev/null; echo $?
+
+
 
   #     - name: Docker meta
   #       id: meta
