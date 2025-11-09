@@ -34,14 +34,7 @@ jobs:
       with:
         tag_prefix: "v"
         version_format: "${major}.${minor}.${patch}"
-        major_pattern: "BREAKING CHANGE:|!:|BC:|major:"
-        major_regexp_flags: "gi"
-        minor_pattern: "feat:|feature:|minor:"
-        minor_regexp_flags: "gi"
-        bump_each_commit: false
-        search_commit_body: true
-        enable_prerelease_mode: false          # <-- make MAJOR bump to 1.x.x pre-1.0
-        debug: true
+        bump: "major"
 
     - name: Debug
       run: |
