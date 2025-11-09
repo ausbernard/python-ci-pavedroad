@@ -34,4 +34,5 @@ jobs:
 
       - name: Run Trufflehog
         run: |
-          trufflehog --regex --rules ${{ inputs.truffle-hog-rules }} git:$(git rev-parse --short HEAD)
+          # Scan the current repository from its root
+          trufflehog --regex --rules ${{ inputs.truffle-hog-rules }} git file://$PWD
