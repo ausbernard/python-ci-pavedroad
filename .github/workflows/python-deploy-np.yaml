@@ -36,8 +36,8 @@ jobs:
           # Ensure we get all history and tags
           namespace: python-ci-pavedroad
           # Major version changes (Breaking changes)
-          major_pattern: "BREAKING CHANGE:|!:|BC:"
-          major_regexp_flags: "g"
+          major_pattern: "BREAKING CHANGE:|!:|BC:|major:"
+          major_regexp_flags: "gi"
           # Minor version changes (Features)
           minor_pattern: "feat:|feature:|minor:"
           minor_regexp_flags: "gi"
