@@ -38,7 +38,6 @@ jobs:
           minor_pattern: "feat:|feature:|minor:"
           minor_regexp_flags: "gi"
           bump_each_commit: false
-          # Look at commit messages and bodies
           search_commit_body: true
           # Debug for visibility
           debug: true
