@@ -31,15 +31,14 @@ jobs:
         id: version
         uses: paulhatch/semantic-version@v5.4.0
         with:
+          tag_prefix: "v"
           version_format: "${major}.${minor}.${patch}"
-          namespace: python-ci-pavedroad
           major_pattern: "BREAKING CHANGE:|!:|BC:|major:"
           major_regexp_flags: "g"
           minor_pattern: "feat:|feature:|minor:"
           minor_regexp_flags: "gi"
           bump_each_commit: false
           search_commit_body: true
-          # Debug for visibility
           debug: true
 
       - name: Show Version
@@ -50,58 +49,58 @@ jobs:
           echo "Minor: ${{ steps.version.outputs.minor }}"
           echo "Patch: ${{ steps.version.outputs.patch }}"
 
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.IMAGE_NAME }}
-          tags: |
-            type=ref,event=pr
-            type=raw,value=v${{ steps.version.outputs.version }}
-            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+  #     - name: Docker meta
+  #       id: meta
+  #       uses: docker/metadata-action@v5
+  #       with:
+  #         images: ${{ env.IMAGE_NAME }}
+  #         tags: |
+  #           type=ref,event=pr
+  #           type=raw,value=v${{ steps.version.outputs.version }}
+  #           type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
 
-  lint-test:
-    name: Lint and Test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+  # lint-test:
+  #   name: Lint and Test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v6
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-          cache: "pip"
+  #     - uses: actions/setup-python@v6
+  #       with:
+  #         python-version: ${{ env.PYTHON_VERSION }}
+  #         cache: "pip"
 
-      - name: Install and Test
-        run: |
-          python -m pip install --upgrade pip
-          pip install -e ".[dev]"
-          pre-commit run --all-files
-          pytest -v --cov=src --cov-report=term-missing
+  #     - name: Install and Test
+  #       run: |
+  #         python -m pip install --upgrade pip
+  #         pip install -e ".[dev]"
+  #         pre-commit run --all-files
+  #         pytest -v --cov=src --cov-report=term-missing
 
-  build-image:
-    name: Build and Push
-    needs: [lint-test, version]
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - uses: actions/checkout@v4
+  # build-image:
+  #   name: Build and Push
+  #   needs: [lint-test, version]
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   steps:
+  #     - uses: actions/checkout@v4
 
-      - uses: docker/setup-buildx-action@v3
+  #     - uses: docker/setup-buildx-action@v3
 
-      - uses: docker/login-action@v3
-        if: github.event_name == 'pull_request'
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+  #     - uses: docker/login-action@v3
+  #       if: github.event_name == 'pull_request'
+  #       with:
+  #         registry: ghcr.io
+  #         username: ${{ github.actor }}
+  #         password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Push
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: ${{ github.event_name == 'pull_request' }}
-          tags: ${{ needs.version.outputs.tags }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+  #     - name: Build and Push
+  #       uses: docker/build-push-action@v6
+  #       with:
+  #         context: .
+  #         push: ${{ github.event_name == 'pull_request' }}
+  #         tags: ${{ needs.version.outputs.tags }}
+  #         cache-from: type=gha
+  #         cache-to: type=gha,mode=max
