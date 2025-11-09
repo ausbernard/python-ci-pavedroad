@@ -31,7 +31,6 @@ jobs:
         id: version
         uses: paulhatch/semantic-version@v5.4.0
         with:
-          tag_prefix: "v"
           version_format: "${major}.${minor}.${patch}"
           # Ensure we get all history and tags
           namespace: python-ci-pavedroad
