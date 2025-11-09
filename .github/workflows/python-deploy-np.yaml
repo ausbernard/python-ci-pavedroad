@@ -34,7 +34,7 @@ jobs:
           version_format: "${major}.${minor}.${patch}"
           namespace: python-ci-pavedroad
           major_pattern: "BREAKING CHANGE:|!:|BC:|major:"
-          major_regexp_flags: "gi"
+          major_regexp_flags: "g"
           minor_pattern: "feat:|feature:|minor:"
           minor_regexp_flags: "gi"
           bump_each_commit: false
