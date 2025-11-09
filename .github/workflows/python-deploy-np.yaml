@@ -28,13 +28,16 @@ jobs:
         fetch-depth: 0
     - run: git fetch --force --tags --prune --prune-tags
 
-    - name: Generate version
-      id: version
+    - name: Compute next version
+      id: semver
       uses: paulhatch/semantic-version@v5.4.0
       with:
         tag_prefix: "v"
         version_format: "${major}.${minor}.${patch}"
-        bump: "major"
+        major_pattern: "BREAKING CHANGE"
+        minor_pattern: "^feat:"
+        search_commit_body: true
+        bump_each_commit: true  # optional: patch-bump if nothing matches above
 
     - name: Debug
       run: |
