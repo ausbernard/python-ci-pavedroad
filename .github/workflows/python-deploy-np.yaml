@@ -23,34 +23,33 @@ jobs:
       version: ${{ steps.version.outputs.version }}
       tags: ${{ steps.meta.outputs.tags }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - run: git fetch --force --tags --prune --prune-tags
 
-      - name: Generate version
-        id: version
-        uses: paulhatch/semantic-version@v5.4.0
-        with:
-          tag_prefix: "v"
-          version_format: "${major}.${minor}.${patch}"
-          major_pattern: "BREAKING CHANGE:|!:|BC:|major:"
-          major_regexp_flags: "g"
-          minor_pattern: "feat:|feature:|minor:"
-          minor_regexp_flags: "gi"
-          bump_each_commit: false
-          search_commit_body: true
-          debug: true
+    - name: Generate version
+      id: version
+      uses: paulhatch/semantic-version@v5.4.0
+      with:
+        tag_prefix: "v"                           # <— IMPORTANT: matches v0.0.0
+        version_format: "${major}.${minor}.${patch}"
+        major_pattern: "BREAKING CHANGE:|!:|BC:|major:"
+        major_regexp_flags: "gi"
+        minor_pattern: "feat:|feature:|minor:"
+        minor_regexp_flags: "gi"
+        bump_each_commit: false
+        search_commit_body: true
+        debug: true
 
-      - name: Debug
-        run: |
-          echo "All tags:"; git tag -l | sort -V | tail -n 20
-          echo "Last 'v*' tag:"; last=$(git tag -l 'v*' | sort -V | tail -n 1); echo "$last"
-          echo "Commits since last tag (subjects):"
-          if [ -n "$last" ]; then git log "$last"..HEAD --pretty="%h %s"; else echo "(no tag)"; fi
-          echo "Does HEAD look like MAJOR? (0=yes)"
-          git log -1 --pretty=%B | grep -E -i 'BREAKING CHANGE:|!:|BC:|major:' >/dev/null; echo $?
-
-
+    - name: Debug
+      run: |
+        echo "All tags:"; git tag -l | sort -V | tail -n 20
+        echo "Last 'v*' tag:"; last=$(git tag -l 'v*' | sort -V | tail -n 1); echo "$last"
+        echo "Commits since last tag (subjects):"
+        if [ -n "$last" ]; then git log "$last"..HEAD --pretty="%h %s"; else echo "(no tag)"; fi
+        echo "Does HEAD look like MAJOR? (0=yes)"
+        git log -1 --pretty=%B | grep -E -i 'BREAKING CHANGE:|!:|BC:|major:' >/dev/null; echo $?
 
   #     - name: Docker meta
   #       id: meta
