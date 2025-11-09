@@ -1,0 +1,50 @@
+[build-system]
+requires = ['hatchling>=1.27.0']
+build-backend = 'hatchling.build'
+
+[project]
+name = "python-ci-pavedroad-template-app"
+version = "0.1.0"
+description = "Reusable CI application for Python apps with tests, linting, security scans, and Docker"
+readme = "README.md"
+required-python = "3.11"
+license = { text = "MIT" }
+authors = [{ name = "Austin" }]
+
+# Runtime deps (keep this small)
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]"
+]
+
+[project.optional-dependencies]
+# Developer extras installed with `pip install -e ".[dev]"
+dev = [
+    "pytest",
+    "pytest-cov",
+    "black",
+    "ruff",
+    "trufflehog",
+    "httpx",
+    "pre-commit"
+]
+
+[tool.pytest.ini_options]
+addopts = "-q --strict-markers --disable-warnings"
+testpaths = ["tests"]
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+exclude = '/(\.venv|build|dist)/'  # Correctly formatted as a regex string
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+# Pick a sane set; you can expand later
+select = ["E", "F", "W", "I"]  # pycodestyle, pyflakes, warnings, isort
+ignore = ["E501"]              # black handles line length
+exclude = [".venv", "build", "dist", ".history"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/python_ci_pavedroad_template_app"]
