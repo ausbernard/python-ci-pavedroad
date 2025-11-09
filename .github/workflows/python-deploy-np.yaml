@@ -40,8 +40,6 @@ jobs:
           minor_regexp_flags: "gi"
           # Enable searching commit body
           search_commit_body: true
-          # Bump on each commit
-          bump_each_commit: true
           # Debug output
           debug: true
 
