@@ -37,7 +37,6 @@ jobs:
           major_regexp_flags: "gi"
           minor_pattern: "feat:|feature:|minor:"
           minor_regexp_flags: "gi"
-          # Enable patch bumps for each commit
           bump_each_commit: false
           # Look at commit messages and bodies
           search_commit_body: true
