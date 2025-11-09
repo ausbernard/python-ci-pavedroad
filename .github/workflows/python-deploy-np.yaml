@@ -32,16 +32,18 @@ jobs:
         uses: paulhatch/semantic-version@v5.4.0
         with:
           tag_prefix: "v"
-          # Major version changes
-          major_pattern: "/(BREAKING CHANGE:|!:|BC:)/"
-          # Minor version changes
-          minor_pattern: "/(feat|feature|minor):/i"
-          # Patch version changes
-          patch_pattern: "/(fix|bugfix|patch|chore|docs|style|refactor|perf|test):/i"
-          # Bump version if any files in src/ or tests/ change
-          path_filters: |
-            src/**
-            tests/**
+          # Major version changes (Breaking changes)
+          major_pattern: "BREAKING CHANGE:|!:|BC:"
+          major_regexp_flags: "g"
+          # Minor version changes (Features)
+          minor_pattern: "feat:|feature:|minor:"
+          minor_regexp_flags: "gi"
+          # Enable searching commit body
+          search_commit_body: true
+          # Bump on each commit
+          bump_each_commit: true
+          # Debug output
+          debug: true
 
       - name: Docker meta
         id: meta
