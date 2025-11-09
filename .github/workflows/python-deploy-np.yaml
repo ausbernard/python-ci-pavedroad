@@ -33,7 +33,6 @@ jobs:
         with:
           version_format: "${major}.${minor}.${patch}"
           namespace: python-ci-pavedroad
-          # Major version changes (Breaking)
           major_pattern: "BREAKING CHANGE:|!:|BC:|major:"
           major_regexp_flags: "gi"
           # Minor version changes (Features)
