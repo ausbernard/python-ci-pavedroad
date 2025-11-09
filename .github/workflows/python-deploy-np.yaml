@@ -36,8 +36,7 @@ jobs:
         major_pattern: "BREAKING CHANGE"
         minor_pattern: "^feat:"
         search_commit_body: true
-        bump_each_commit: true  # optional: patch-bump if nothing matches above
-
+        bump_each_commit: false
     - name: Debug
       run: |
         echo "All tags:"; git tag -l | sort -V | tail -n 20
