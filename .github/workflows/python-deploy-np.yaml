@@ -40,6 +40,7 @@ jobs:
         minor_regexp_flags: "gi"
         bump_each_commit: false
         search_commit_body: true
+        enable_prerelease_mode: false          # <-- make MAJOR bump to 1.x.x pre-1.0
         debug: true
 
     - name: Debug
