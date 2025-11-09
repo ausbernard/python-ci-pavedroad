@@ -32,8 +32,16 @@ jobs:
         uses: paulhatch/semantic-version@v5.4.0
         with:
           tag_prefix: "v"
-          major_pattern: "/!:|BC:/"
-          minor_pattern: "/feat:/"
+          # Major version changes
+          major_pattern: "/(BREAKING CHANGE:|!:|BC:)/"
+          # Minor version changes
+          minor_pattern: "/(feat|feature|minor):/i"
+          # Patch version changes
+          patch_pattern: "/(fix|bugfix|patch|chore|docs|style|refactor|perf|test):/i"
+          # Bump version if any files in src/ or tests/ change
+          path_filters: |
+            src/**
+            tests/**
 
       - name: Docker meta
         id: meta
