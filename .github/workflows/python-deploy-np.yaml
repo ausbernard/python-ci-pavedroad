@@ -32,7 +32,7 @@ jobs:
         uses: paulhatch/semantic-version@v5.4.0
         with:
           tag_prefix: "v"
-          version_format: "v${major}.${minor}.${patch}"
+          version_format: "${major}.${minor}.${patch}"
           # Ensure we get all history and tags
           namespace: python-ci-pavedroad
           # Major version changes (Breaking changes)
@@ -42,7 +42,7 @@ jobs:
           minor_pattern: "feat:|feature:|minor:"
           minor_regexp_flags: "gi"
           # Enable patch bumps for each commit
-          bump_each_commit: true
+          bump_each_commit: false
           # Look at commit messages and bodies
           search_commit_body: true
           # Debug for visibility
@@ -51,7 +51,7 @@ jobs:
       - name: Show Version
         run: |
           echo "Version: ${{ steps.version.outputs.version }}"
-          echo "Version Tag: ${{ steps.version.outputs.version }}"
+          echo "Version Tag: v${{ steps.version.outputs.version }}"
           echo "Major: ${{ steps.version.outputs.major }}"
           echo "Minor: ${{ steps.version.outputs.minor }}"
           echo "Patch: ${{ steps.version.outputs.patch }}"
