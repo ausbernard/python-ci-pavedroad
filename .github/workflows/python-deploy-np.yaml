@@ -106,7 +106,7 @@ jobs:
         if: |
           github.event_name == 'pull_request' &&
           github.event.action == 'closed' &&
-          github.event.pull_request.merged == true &&
+          github.event.pull_request.merged == true 
         uses: docker/build-push-action@v6
         with:
           context: .
