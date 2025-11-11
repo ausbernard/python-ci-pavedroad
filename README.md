@@ -20,7 +20,7 @@ You can drop this **workflow** into any Python project.
 
 | Tool | Purpose |
 |------|----------|
-| 🐍 Python 3.11 | Application logic |
+| 🐍 Python 3.10 | (test) Application logic |
 | 🧪 pytest | Unit testing |
 | 🎨 black + ruff | Linting & formatting |
 | 🐳 Docker | Containerization & local deployment |
@@ -29,8 +29,12 @@ You can drop this **workflow** into any Python project.
 
 ---
 
-## 🏃‍♂️ Quick Start
+## Quick Start
 *coming soon*
+
+## TODO
+- Convert this pipeline into a **reusable workflow** with inputs for `python-version` and `image-name`.
+- Add optional authentication steps to support different container registries (e.g. GHCR, Docker Hub, AWS ECR, GCP Artifact Registry).
 
 ## 🏗️ Repository Structure
 
