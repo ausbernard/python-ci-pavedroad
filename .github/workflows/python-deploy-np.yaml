@@ -55,7 +55,7 @@ jobs:
         with:
           tag_prefix: "v"
           version_format: "${major}.${minor}.${patch}"
-          major_pattern: "BREAKING CHANGE"   # <- no leading space; body searched below
+          major_pattern: "BREAKING CHANGE"
           minor_pattern: "^feat:"
           search_commit_body: true
           bump_each_commit: false
