@@ -86,11 +86,24 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Push
+      # Build only for open PRs (no push)
+      - name: Build (PR only, no push)
+        if: github.event_name == 'pull_request' && github.event.action != 'closed'
         uses: docker/build-push-action@v6
         with:
           context: .
-          push: ${{ github.event_name == 'pull_request' }}
+          push: false
+          tags: ${{ needs.version.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # Build and push when PR is closed and merged to main
+      - name: Build and Push (on merged PR)
+        if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true && github.base_ref == 'main'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
           tags: ${{ needs.version.outputs.tags }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
