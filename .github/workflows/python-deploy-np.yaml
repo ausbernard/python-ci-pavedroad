@@ -33,8 +33,8 @@ jobs:
       with:
         tag_prefix: "v"
         version_format: "${major}.${minor}.${patch}"
-        major_pattern: "BREAKING CHANGE"
-        minor_paattern: "^feat:"
+        major_pattern: "major:"
+        minor_pattern: "^feat:"
         search_commit_body: true
         bump_each_commit: false
 
