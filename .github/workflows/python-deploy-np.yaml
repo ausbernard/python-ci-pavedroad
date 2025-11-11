@@ -20,7 +20,7 @@ jobs:
   version:
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.version.outputs.version }}
+      version: ${{ steps.semver.outputs.version }}
       tags: ${{ steps.meta.outputs.tags }}
     steps:
     - uses: actions/checkout@v4
@@ -94,3 +94,21 @@ jobs:
           tags: ${{ needs.version.outputs.tags }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  github-release:
+    name: Create GitHub Release
+    needs: build-image
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' 
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ needs.version.outputs.version }}
+          prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
