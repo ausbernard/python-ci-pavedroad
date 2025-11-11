@@ -88,7 +88,9 @@ jobs:
 
       # Build only for open PRs (no push)
       - name: Build (PR only, no push)
-        if: github.event_name == 'pull_request' && github.event.action != 'closed'
+          github.event_name == 'pull_request' &&
+          github.event.action == 'closed' &&
+          github.event.pull_request.merged == true
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -99,7 +101,10 @@ jobs:
 
       # Build and push when PR is closed and merged to main
       - name: Build and Push (on merged PR)
-        if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true && github.base_ref == 'main'
+        if: |
+          github.event_name == 'pull_request' &&
+          github.event.action == 'closed' &&
+          github.event.pull_request.merged == true
         uses: docker/build-push-action@v6
         with:
           context: .
