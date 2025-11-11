@@ -30,21 +30,25 @@ You can drop this **workflow** into any Python project.
 
 ---
 
+## 🏃‍♂️ Quick Start
+*coming soon*
+
 ## 🏗️ Repository Structure
 
 ```bash
 python-ci-pavedroad/
 ├── .github/
 │   └── workflows/
-│       └── python-deploy-np.yaml            # CI pipeline
-        └── python-promote.yaml            # CI pipeline
-        └── python-deploy-pr.yaml            # CI pipeline
+│       └── python-deploy.yaml            # CI pipeline
 ├── src/
 │   └── app.py                # Sample app
 ├── tests/
-│   └── test_app.py           # Unit tests
-├── Dockerfile                # Multi-stage Docker build
-├── docker-compose.yml        # Local deployment
+│   └── test_health.py           # Unit tests
+│   └── test_root.py           # Unit tests
+├── Dockerfile
+├── .dockerignore
+├── pyproject.toml
 ├── requirements.txt          # Python dependencies
+├── .pre-commit-config.yaml
+├── .gitignore
 └── README.md
-2025-11-08T23:52:23-05:00 bump test

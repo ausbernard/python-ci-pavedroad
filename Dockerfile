@@ -20,8 +20,5 @@ COPY src/ src/
 RUN useradd -m appuser && chown -R appuser:appuser /app
 USER appuser
 
-# Add entry point as shell
-ENTRYPOINT ["/bin/sh", "-c"]
-
 # Run the application
 CMD ["uvicorn", "python_ci_pavedroad_template_app.app:app", "--host", "0.0.0.0", "--port", "8080"]
