@@ -10,8 +10,8 @@ Fixes #ISSUE_ID (optional)
 ## 🧪 Testing Steps
 
 <!-- Outline how reviewers can verify the changes locally. -->
-1. Pull this branch  
-2. Run `pytest` or start the container  
+1. Pull this branch
+2. Run `pytest` or start the container
 3. Verify that ________
 
 ## ✅ Checklist
@@ -29,11 +29,11 @@ Fixes #ISSUE_ID (optional)
 ---
 
 **Type of change:**
-- [ ] 🚀 Feature  
-- [ ] 🐛 Bug fix  
-- [ ] 🧹 Refactor / chore  
-- [ ] 🧪 Tests / CI only  
-- [ ] 📝 Documentation  
+- [ ] 🚀 Feature
+- [ ] 🐛 Bug fix
+- [ ] 🧹 Refactor / chore
+- [ ] 🧪 Tests / CI only
+- [ ] 📝 Documentation
 
 ---
 
