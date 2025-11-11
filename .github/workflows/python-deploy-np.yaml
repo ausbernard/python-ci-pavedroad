@@ -55,7 +55,7 @@ jobs:
         with:
           tag_prefix: "v"
           version_format: "${major}.${minor}.${patch}"
-          major_pattern: "major:"          # consider BREAKING CHANGE for CC
+          major_pattern: " BREAKING CHANGE:"          # consider BREAKING CHANGE for CC
           minor_pattern: "^feat:"
           search_commit_body: true
           bump_each_commit: false
