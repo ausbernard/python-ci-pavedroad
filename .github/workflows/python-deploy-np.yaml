@@ -46,7 +46,7 @@ jobs:
         images: ${{ env.IMAGE_NAME }}
         tags: |
           type=ref,event=pr
-          type=raw,value=v${{ steps.version.outputs.version }}
+          type=raw,value=v${{ steps.version.semver.version }}
           type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
 
   lint-test:
