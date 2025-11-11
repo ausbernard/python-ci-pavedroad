@@ -10,10 +10,9 @@ You can drop this **workflow** into any Python project.
 
 - ✅ Automated testing with **pytest**
 - ✅ Code quality enforcement via **black** + **ruff**
-- ✅ Multi-stage Docker builds
+- ✅ Docker builds
 - ✅ CI/CD via **GitHub Actions**
 - ✅ Push Docker image to **GitHub Container Registry (GHCR)**
-- ✅ Example deployment via **Docker Compose**
 
 ---
 
@@ -21,17 +20,21 @@ You can drop this **workflow** into any Python project.
 
 | Tool | Purpose |
 |------|----------|
-| 🐍 Python 3.11 | Application logic |
+| 🐍 Python 3.10 | (test) Application logic |
 | 🧪 pytest | Unit testing |
 | 🎨 black + ruff | Linting & formatting |
-| 🐳 Docker / Docker Compose | Containerization & local deployment |
+| 🐳 Docker | Containerization & local deployment |
 | ⚙️ GitHub Actions | Continuous Integration & Delivery |
 | ☁️ GHCR | Container image hosting |
 
 ---
 
-## 🏃‍♂️ Quick Start
+## Quick Start
 *coming soon*
+
+## TODO
+- Convert this pipeline into a **reusable workflow** with inputs for `python-version` and `image-name`.
+- Add optional authentication steps to support different container registries (e.g. GHCR, Docker Hub, AWS ECR, GCP Artifact Registry).
 
 ## 🏗️ Repository Structure
 
